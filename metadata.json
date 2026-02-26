@@ -1,0 +1,5 @@
+{
+  "name": "SecureVault",
+  "description": "A secure document access gateway with Telegram bot integration.",
+  "requestFramePermissions": []
+}
