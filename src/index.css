@@ -6,18 +6,35 @@
 
 @layer base {
   body {
-    @apply antialiased text-slate-900 bg-white;
+    /* Changed bg-white to bg-black to prevent white flashes */
+    @apply antialiased bg-black text-white selection:bg-microsoft-blue/30;
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   }
 }
 
-/* Custom scrollbar for professional look */
+/* Custom professional scrollbar for dark interface */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #000000;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #333333;
   border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  /* Uses your branding blue for the scrollbar hover */
+  background: #0067b8; 
+}
+
+/* Fix for smooth transitions between portal pages */
+html {
+  scroll-behavior: smooth;
+  background-color: black;
 }

