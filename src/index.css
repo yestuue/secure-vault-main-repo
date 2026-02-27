@@ -6,14 +6,23 @@
 
 @layer base {
   body {
-    /* Changed bg-white to bg-black to prevent white flashes */
     @apply antialiased bg-black text-white selection:bg-microsoft-blue/30;
     margin: 0;
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    overflow-x: hidden;
   }
 }
 
-/* Custom professional scrollbar for dark interface */
+/* Custom Overlay to match target image depth */
+.bg-gradient-overlay {
+  background: linear-gradient(180deg, 
+    rgba(0,0,0,0.85) 0%, 
+    rgba(0,0,0,0.3) 50%, 
+    rgba(0,0,0,0.9) 100%
+  );
+}
+
+/* Custom professional scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -25,15 +34,12 @@
 ::-webkit-scrollbar-thumb {
   background: #333333;
   border-radius: 10px;
-  transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  /* Uses your branding blue for the scrollbar hover */
-  background: #0067b8; 
+  background: #00a4ef; /* Matches the new brighter blue */
 }
 
-/* Fix for smooth transitions between portal pages */
 html {
   scroll-behavior: smooth;
   background-color: black;
